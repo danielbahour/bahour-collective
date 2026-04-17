@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bahour Collective | Cinematic Video & Music, Montréal</title>
+    <title>Bahour Collective | DJ • Visuals • Montréal</title>
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -54,6 +54,28 @@
       ::selection {
         background: var(--amber);
         color: var(--bg);
+      }
+
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 1.5px;
+        width: 0%;
+        background: linear-gradient(to right, rgba(196,135,74,0.2), var(--amber));
+        z-index: 10000;
+        pointer-events: none;
+        transition: width 0.08s linear;
+      }
+
+      .page-grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9998;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.85  0 0 0 0 0.75  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        mix-blend-mode: overlay;
       }
 
       .loader {
@@ -1662,10 +1684,12 @@
     </style>
   </head>
   <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="page-grain" aria-hidden="true"></div>
     <div class="loader" id="loader">
       <div style="text-align: center">
         <div class="loader-brand">BHC</div>
-        <div class="loader-sub">Sound. Vision. Atmosphere.</div>
+        <div class="loader-sub">Sound. Scene. Energy.</div>
         <div class="loader-bar"></div>
       </div>
     </div>
@@ -1946,7 +1970,7 @@
           <h3>Daniel Bahour</h3>
           <p>
             DJ blending sound and visuals into one experience.<br>
-            I pay attention to how people react, and adjust in real time.
+            <span style="white-space:nowrap">I pay attention to how people react, and adjust in real time.</span>
             <span class="quote-line">It is always about the art, never the artist.</span>
           </p>
         </div>
@@ -2244,6 +2268,18 @@
       }
       
       
+
+      var sp = document.getElementById("scrollProgress");
+      if (sp) {
+        var updateSp = function() {
+          var h = document.documentElement;
+          var total = h.scrollHeight - h.clientHeight;
+          var pct = total > 0 ? (h.scrollTop / total) * 100 : 0;
+          sp.style.width = pct + "%";
+        };
+        window.addEventListener("scroll", updateSp, { passive: true });
+        updateSp();
+      }
 
       var vid = document.querySelector('.vid-zone-bg video');
       if (vid) {
