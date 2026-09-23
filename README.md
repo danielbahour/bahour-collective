@@ -3,7 +3,7 @@
 
 A responsive website I built for my independent DJ and creative work.
 
-🌐 Live website: https://bahourcollective.com
+Live website: https://bahourcollective.com
 
 ## About the Project
 
@@ -34,4 +34,4 @@ I built the website structure, styling and interactive behaviour, including the 
 ## Author
 
 Daniel Bahour  
-Electrical Engineering — McGill University
+Electrical Engineering, McGill University
